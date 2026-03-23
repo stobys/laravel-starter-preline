@@ -4,7 +4,7 @@
             <ul class="flex items-center gap-1.5">
                 <li class="inline-flex items-center gap-1 relative pe-1.5 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-navbar-2-divider after:rounded-full after:-translate-y-1/2 after:rotate-12">
                     <a class="shrink-0 inline-flex justify-center items-center rounded-md text-xl inline-block font-semibold focus:outline-hidden focus:opacity-80" href="{{ url('/') }}" aria-label="Home">
-                        <img src="{{ asset('img/adient-logo.svg') }}" alt="Adient Logo" style="width: 80px; height: 32px;" />
+                        <img src="{{ asset('img/app-logo.svg') }}" alt="Adient Logo" style="width: 80px; height: 32px;" />
                     </a>
 
                     <div class="hidden sm:block"></div>
