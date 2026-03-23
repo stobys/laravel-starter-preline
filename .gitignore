@@ -15,16 +15,28 @@ public/hot
 public_html/storage
 public_html/hot
 
+*.log
 storage/*.key
 .env
+.env.backup
+.env.production
 Homestead.yaml
 Homestead.json
+Thumbs.db
 /.vagrant
 .phpunit.result.cache
 
 /public/build
+/public/hot
+/public/storage
 /storage/pail
 .env.backup
 .env.production
 .phpactor.json
 auth.json
+
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
