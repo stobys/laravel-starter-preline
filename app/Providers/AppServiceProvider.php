@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,13 +21,29 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::defaultView('layout.paginator');
+
+        $this -> bootRequestMacros();
+
         // $this->configureSecureUrls();
 
         // $this->bootViewComposers();
 
         // $this->bootBladeDirectives();
     }
-	
+
+    protected function bootRequestMacros(): void
+    {
+        // Add any request macros here if needed
+        Request::macro('sortUrl', function ($field, $order = 'asc') {
+            $params = request()->query();
+            $params['sf'] = $field;
+            $params['so'] = $order;
+
+            return request()->fullUrlWithQuery($params);
+        });
+    }
+
 	protected function bootViewComposers(): void
     {
         View::composer([
