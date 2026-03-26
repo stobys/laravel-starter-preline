@@ -29,12 +29,12 @@
                 <!-- Checkbox -->
                 <div class="flex items-center">
                     <div class="flex">
-                    <input id="checkbox" name="checkbox" type="checkbox" class="shrink-0 size-4 bg-transparent border-line-3 rounded-sm shadow-2xs text-primary focus:ring-0 focus:ring-offset-0 checked:bg-primary-checked checked:border-primary-checked disabled:opacity-50 disabled:pointer-events-none">
+                        <input id="remember_me" name="remember" type="checkbox" class="shrink-0 size-4 bg-transparent border-line-3 rounded-sm shadow-2xs text-primary focus:ring-0 focus:ring-offset-0 checked:bg-primary-checked checked:border-primary-checked disabled:opacity-50 disabled:pointer-events-none">
                     </div>
                     <div class="ms-3">
-                    <label for="checkbox" class="text-sm text-foreground">
-                        Remember me
-                    </label>
+                        <label for="remember_me" class="text-sm text-foreground">
+                            Remember me
+                        </label>
                     </div>
                 </div>
                 <!-- End Checkbox -->

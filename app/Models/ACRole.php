@@ -7,19 +7,15 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 
+#[Fillable(['name', 'guard_name', 'is_built_in'])]
 class ACRole extends Role
 {
     use SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'guard_name',
-        'is_system_role'
-    ];
-
     protected $casts = [
-        'is_system_role' => 'boolean',
+        'is_built_in' => 'boolean',
     ];
 
     /**

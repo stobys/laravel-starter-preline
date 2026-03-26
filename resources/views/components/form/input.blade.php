@@ -4,10 +4,12 @@
     'name' => null,
     'value' => null,
     'required' => false,
+    'readonly' => false,
 ])
 
 <input type="{{ $type ?? 'text' }}" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}"
     {{ $required ? 'required' : '' }}
+    {{ $readonly ? 'readonly' : '' }}
     @class(["py-2.5 sm:py-3 px-4 block w-full bg-layer rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1",
         "border-red-500 focus:border-red-500 focus:ring-red-500" => $errors->has($name),
         "border-teal-500 focus:border-teal-500 focus:ring-teal-500" => !$errors->has($name)

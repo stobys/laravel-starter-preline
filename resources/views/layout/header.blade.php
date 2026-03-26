@@ -132,12 +132,20 @@
 
             <ul class="flex flex-row items-center gap-x-3 ms-auto">
                 <li class="hidden lg:inline-flex items-center gap-1.5 relative pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-navbar-2-divider after:rounded-full after:-translate-y-1/2 after:rotate-12">
-                    <a class="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-navbar-2-nav-foreground rounded-lg hover:bg-navbar-2-nav-hover focus:outline-hidden focus:bg-navbar-2-nav-focus" href="#">
-                    Docs
+                    <a href="https://www.preline.co/docs/index.html" class="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-navbar-2-nav-foreground rounded-lg hover:bg-navbar-2-nav-hover focus:outline-hidden focus:bg-navbar-2-nav-focus">
+                    <x-feather-book-open class="shrink-0 size-4 text-blue-600" /> Docs
                     </a>
 
-                    <a class="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-navbar-2-nav-foreground rounded-lg hover:bg-navbar-2-nav-hover focus:outline-hidden focus:bg-navbar-2-nav-focus" href="#">
-                    API
+                    <a href="https://www.preline.co/examples.html" class="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-navbar-2-nav-foreground rounded-lg hover:bg-navbar-2-nav-hover focus:outline-hidden focus:bg-navbar-2-nav-focus">
+                    <x-feather-book-open class="shrink-0 size-4 text-blue-600" /> Examples
+                    </a>
+
+                    <a href="https://www.preline.co/templates.html" class="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-navbar-2-nav-foreground rounded-lg hover:bg-navbar-2-nav-hover focus:outline-hidden focus:bg-navbar-2-nav-focus">
+                    <x-feather-layout class="shrink-0 size-4 text-indigo-500" /> Templates
+                    </a>
+
+                    <a href="https://www.preline.co/plugins.html" class="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-navbar-2-nav-foreground rounded-lg hover:bg-navbar-2-nav-hover focus:outline-hidden focus:bg-navbar-2-nav-focus">
+                    <x-feather-grid class="shrink-0 size-4 text-pink-600" /> Plugins
                     </a>
                 </li>
 
@@ -189,6 +197,7 @@
                                 </div>
 
                                 <div class="p-1 border-t border-dropdown-divider">
+									{{--
                                     <a href="#" class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-dropdown-item-foreground hover:bg-dropdown-item-hover disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-dropdown-item-focus">
                                         <x-feather-user class="shrink-0 mt-0.5 size-4" />
                                         Profile
@@ -197,6 +206,7 @@
                                         <x-feather-settings class="shrink-0 size-4" />
                                         Settings
                                     </a>
+									--}}
                                     <a href="{{ route('password.change') }}" class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-dropdown-item-foreground hover:bg-dropdown-item-hover disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-dropdown-item-focus">
                                         <x-feather-key class="shrink-0 mt-0.5 size-4" />
                                         Change Pass

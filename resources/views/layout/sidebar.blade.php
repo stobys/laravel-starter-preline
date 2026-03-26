@@ -50,17 +50,12 @@
 
                 <div class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-56 transition-[opacity,margin] duration opacity-0 hidden z-20 bg-white dark:bg-neutral-900 border border-transparent rounded-lg shadow-lg" role="menu" aria-orientation="vertical" aria-labelledby="hs-sidebar-header-example-with-dropdown">
                     <div class="p-1">
-                        <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-800 focus:outline-hidden focus:bg-gray-100 dark:focus:bg-neutral-800" href="#">
-                            My account
-                        </a>
-                        <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-800 focus:outline-hidden focus:bg-gray-100 dark:focus:bg-neutral-800" href="#">
-                            Settings
-                        </a>
-                        <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-800 focus:outline-hidden focus:bg-gray-100 dark:focus:bg-neutral-800" href="#">
-                            Billing
+                        <a href="{{ route('password.change') }}" class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-800 focus:outline-hidden focus:bg-gray-100 dark:focus:bg-neutral-800">
+                            <x-feather-key class="shrink-0 size-4" />
+                            Change Pass
                         </a>
                         <a href="{{ route('logout') }}" class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-800 focus:outline-hidden focus:bg-gray-100 dark:focus:bg-neutral-800">
-                            <x-feather-log-out class="size-4" />
+                            <x-feather-log-out class="shrink-0 size-4" />
                             Logout
                         </a>
                     </div>
@@ -79,7 +74,7 @@
                 <x-sidebar.item href="{{ route('users.index') }}" text="Users" :active="request()->routeIs('users.*')">
                     <x-feather-users class="shrink-0 size-4" />
                 </x-sidebar.item>
-                <x-sidebar.item href="#" text="Roles">
+                <x-sidebar.item href="{{ route('roles.index') }}" text="Roles" :active="request()->routeIs('roles.*')">
                     <x-feather-shield class="shrink-0 size-4" />
                 </x-sidebar.item>
             </x-sidebar.group>
@@ -266,16 +261,12 @@
 
                     <div class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-60 transition-[opacity,margin] duration opacity-0 hidden z-20 bg-dropdown border border-dropdown-line rounded-lg shadow-lg" role="menu" aria-orientation="vertical" aria-labelledby="hs-sidebar-footer-example-with-dropdown">
                         <div class="p-1">
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-dropdown-item-foreground hover:bg-dropdown-item-hover focus:outline-hidden focus:bg-dropdown-item-focus" href="#">
-                                My account
-                            </a>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-dropdown-item-foreground hover:bg-dropdown-item-hover focus:outline-hidden focus:bg-dropdown-item-focus" href="#">
-                                Settings
-                            </a>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-dropdown-item-foreground hover:bg-dropdown-item-hover focus:outline-hidden focus:bg-dropdown-item-focus" href="#">
-                                Billing
+                            <a href="{{ route('password.change') }}" class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-dropdown-item-foreground hover:bg-dropdown-item-hover focus:outline-hidden focus:bg-dropdown-item-focus">
+                                <x-feather-key class="shrink-0 size-4" />
+                                Change Pass
                             </a>
                             <a href="{{ route('logout') }}" class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-dropdown-item-foreground hover:bg-dropdown-item-hover focus:outline-hidden focus:bg-dropdown-item-focus">
+                                <x-feather-log-out class="shrink-0 size-4" />
                                 Logout
                             </a>
                         </div>

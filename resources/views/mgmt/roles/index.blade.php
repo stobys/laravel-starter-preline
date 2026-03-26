@@ -8,18 +8,18 @@
         <div class="py-3 px-4 flex flex-wrap justify-between items-center gap-2 border-b border-card-line">
             <div>
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
-                    Users
+                    Roles
                 </h2>
                 <p class="text-sm text-gray-600 dark:text-neutral-300">
-                    List of users.
+                    List of roles.
                 </p>
             </div>
 
             <!-- Button Group -->
             <div class="flex items-center gap-x-2">
-                <a  href="{{ route('users.create') }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
+                <a  href="{{ route('roles.create') }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
                     <x-feather-user-plus class="shrink-0 size-4" />
-                    Add user
+                    Add role
                 </a>
             </div>
             <!-- End Button Group -->
@@ -36,9 +36,9 @@
                         <div class="min-w-full inline-block align-middle">
                             <div class="bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 rounded-xl shadow-2xs overflow-hidden">
                                 <!-- Header -->
-                                <x-form action="{{ route('users.filter') }}">
+                                <x-form action="{{ route('roles.filter') }}">
                                     <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-table-line">
-                                        @includeIf('mgmt.users.index-filter')
+                                        @includeIf('mgmt.roles.index-filter')
                                     </div>
                                 </x-form>
                                 <!-- End Header -->
@@ -65,14 +65,6 @@
                                         <th scope="col" class="px-6 py-3 text-start">
                                         <div class="flex items-center gap-x-2">
                                         <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                        Roles
-                                        </span>
-                                        </div>
-                                        </th>
-
-                                        <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                        <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
                                         Status
                                         </span>
                                         </div>
@@ -81,7 +73,7 @@
                                         <th scope="col" class="px-6 py-3 text-start">
                                         <div class="flex items-center gap-x-2">
                                         <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                        Password Age
+                                        Permissions
                                         </span>
                                         </div>
                                         </th>
@@ -99,17 +91,17 @@
                                     </thead>
 
                                     <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                        @foreach($users as $user)
-                                        @includeIf('mgmt.users.index-row', ['user' => $user])
+                                        @foreach($roles as $role)
+                                        @includeIf('mgmt.roles.index-row', ['role' => $role])
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <!-- End Table -->
 
                                 <!-- Footer -->
-                                @if( $users->hasPages() )
+                                @if( $roles->hasPages() )
                                     <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
-                                        {{ $users->links() }}
+                                        {{ $roles->links() }}
                                     </div>
                                 @endif
                                 <!-- End Footer -->

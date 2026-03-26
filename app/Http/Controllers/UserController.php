@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdateRequest;
+use App\Models\ACRole;
 use App\Models\User;
 use App\Services\PermissionService;
 use App\Services\UserFiltersService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,25 +25,34 @@ class UserController extends Controller
 
     public function index(UserFiltersService $filters)
     {
-        $users = $filters->apply()->paginate(20);
+        $users = $filters->apply()->paginate( config('app.paginator.items_per_page') );
 
         return view('mgmt.users.index', compact('users'));
     }
 
     public function filter(Request $request, UserFiltersService $filters)
     {
-        $filters->save($request->only(['filter']));
+        $filters->save($request->only('filters'));
         return redirect()->route('users.index');
     }
 
-    public function create()
+    public function create(User $user)
     {
-        return view('mgmt.users.create');
+        $roles = ACRole::select(['id', 'name'])->get();
+
+        return view('mgmt.users.create', compact('user', 'roles'));
     }
 
     public function store(UserStoreRequest $request)
     {
-        $user = User::create($request->validated());
+        $data = $request->safe()->except(['roles']);
+        $user = User::create($data);
+
+        if ($user->exists) {
+            $roles = $request->safe()->only(['roles']);
+            $roles = Arr::get($roles, 'roles', []);
+            $user->roles()->sync($roles);
+        }
 
         // if ($user->hasErrors()) {
         //     return redirect()->back()->withInput()->withErrors($user->getErrors());
@@ -53,12 +64,14 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('mgmt.users.edit', compact('user'));
+        $roles = ACRole::select(['id', 'name'])->get();
+
+        return view('mgmt.users.edit', compact('user', 'roles'));
     }
 
     public function update(UserUpdateRequest $request, User $user)
     {
-        $data = $request->validated();
+        $data = $request->safe()->except(['roles']);
 
         // jeśli hasło jest puste, usuń je z tablicy danych
         if (empty($data['password'])) {
@@ -69,6 +82,10 @@ class UserController extends Controller
         }
 
         if ($user->update($data)) {
+            $roles = $request->safe()->only(['roles']);
+            $roles = Arr::get($roles, 'roles', []);
+            $user->roles()->sync($roles);
+
             // $model->saveImage();
             return redirect()->route('users.index') -> with('success', 'Role użytkownika zostały zaktualizowane.');
         }

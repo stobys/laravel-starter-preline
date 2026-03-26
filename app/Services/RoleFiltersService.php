@@ -2,19 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\User;
+use App\Models\ACRole;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class UserFiltersService
+class RoleFiltersService
 {
     public function apply(): Builder
     {
-        $query = User::query()->with('roles');
+        $query = ACRole::query();
 
         // -- Pobierz filtry z sesji lub request
-        $filters = session()->get('filters.users', []);
+        $filters = session()->get('filters.roles', []);
 
         // -- jezeli tylko nieaktywne
         $showActive = in_array('1', Arr::get($filters, 'status', []));
@@ -32,8 +31,7 @@ class UserFiltersService
 
         // -- wyszukiwanie po frazie
         $query->when($filters['search'] ?? null, fn($q, $search) =>
-            $q->whereLike('username', '%'. $search .'%')
-                ->orWhereLike('full_name', '%'. $search .'%')
+            $q->whereLike('name', '%'. $search .'%')
         );
 
         return $query;
@@ -47,11 +45,8 @@ class UserFiltersService
         unset($filters['submit']);
 
         match($submit) {
-            'filter' => request()->session()->put('filters.users', $filters),
-            default => request()->session()->forget('filters.users'),
+            'filter' => request()->session()->put('filters.roles', $filters),
+            default => request()->session()->forget('filters.roles'),
         };
     }
 }
-
-
-

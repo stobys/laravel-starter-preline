@@ -44,7 +44,7 @@ return [
         //     'disk' => '',
 
         //     // -- Default Prefix
-        //     'prefix' => 'ffar',
+        //     'prefix' => 'far',
 
         //     // -- Fallback Icon
         //     'fallback' => '',
@@ -67,7 +67,7 @@ return [
         //     'disk' => '',
 
         //     // -- Default Prefix
-        //     'prefix' => 'ffas',
+        //     'prefix' => 'fas',
 
         //     // -- Fallback Icon
         //     'fallback' => '',
@@ -90,7 +90,7 @@ return [
         //     'disk' => '',
 
         //     // -- Default Prefix
-        //     'prefix' => 'ffab',
+        //     'prefix' => 'fab',
 
         //     // -- Fallback Icon
         //     'fallback' => '',

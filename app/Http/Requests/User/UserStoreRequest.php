@@ -46,6 +46,8 @@ class UserStoreRequest extends FormRequest
                     // ->symbols()
                     // ->uncompromised()
             ],
+            'roles'   => 'array',
+            'roles.*' => 'exists:ac_roles,id',
         ];
     }
 

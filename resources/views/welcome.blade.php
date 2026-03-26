@@ -2,6 +2,31 @@
 
 @section('content')
 
+
+
+
+
+<div id="hs-offcanvas-left" class="hs-overlay hs-overlay-open:translate-x-0 hidden -translate-x-full fixed top-0 start-0 transition-all duration-300 transform h-full max-w-xs w-full z-80 bg-overlay border-s border-overlay-line" role="dialog" tabindex="-1" aria-labelledby="hs-offcanvas-left-label">
+  <div class="flex justify-between items-center py-3 px-4 border-b border-overlay-header">
+    <h3 id="hs-offcanvas-left-label" class="font-semibold text-foreground">
+      Offcanvas title
+    </h3>
+    <button type="button" class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full bg-surface border border-surface-line text-surface-foreground hover:bg-surface-hover focus:outline-hidden focus:bg-surface-focus disabled:opacity-50 disabled:pointer-events-none" aria-label="Close" data-hs-overlay="#hs-offcanvas-left">
+      <span class="sr-only">Close</span>
+      <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="p-4">
+    <p class="text-foreground">
+      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+    </p>
+  </div>
+</div>
+
+
     <!-- Content -->
     <div class="h-[calc(100dvh-62px)] lg:h-full overflow-hidden flex flex-col bg-layer border border-layer-line shadow-xs rounded-lg">
       <!-- Header -->
@@ -32,6 +57,7 @@
       <!-- Body -->
       <div class="flex-1 flex flex-col overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
         <div class="flex-1 flex flex-col lg:flex-row">
+
           <div class="flex-1 min-w-0 flex flex-col border-e border-layer-line">
             <!-- Negative Value Chart in Card -->
             <div class="p-4 flex flex-col border-b border-line-2">
@@ -133,6 +159,9 @@
 
               <!-- Featured News Blog -->
               <div class="flex flex-col pb-4 last:pb-0 last:border-b-0">
+<button type="button" class="m-1 ms-0 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-focus disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-left" data-hs-overlay="#hs-offcanvas-left">
+  Toggle left offcanvas
+</button>
                 <div class="pt-4 flex flex-col md:flex-row gap-5">
                   <div class="relative aspect-4/2 md:aspect-4/3 w-full md:max-w-80 bg-secondary rounded-lg">
                     <img class="absolute inset-0 size-full object-cover object-center rounded-lg" src="https://images.unsplash.com/photo-1737625773603-3f0acdb5bb3f?q=80&w=480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Post Image">

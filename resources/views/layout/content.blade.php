@@ -27,6 +27,15 @@
 
       <!-- Body -->
       <div class="flex-1 flex flex-col overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
+
+
+<button type="button" class="m-1 ms-0 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-focus disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-left" data-hs-overlay="#hs-offcanvas-left">
+  Toggle left offcanvas
+</button>
+
+
+
+
         <div class="flex-1 flex flex-col lg:flex-row">
           <div class="flex-1 min-w-0 flex flex-col border-e border-layer-line">
             <!-- Negative Value Chart in Card -->
