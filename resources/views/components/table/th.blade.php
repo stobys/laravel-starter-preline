@@ -1,3 +1,5 @@
+@blaze
+
 @props([
     'sortable'  => false,
     'model'     => null,

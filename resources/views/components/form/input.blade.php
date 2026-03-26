@@ -1,3 +1,5 @@
+@blaze
+
 @props([
     'type' => 'text',
     'id' => Str::random(10),
