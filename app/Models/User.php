@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \Spatie\Permission\Traits\HasRoles;
+use App\Traits\SortableTrait;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,8 +17,10 @@ use Illuminate\Support\Carbon;
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes, SortableTrait;
     // HasRolesAndPermissions;
+
+    protected $sortables = ['id', 'username', 'email', 'first_name', 'last_name', 'full_name','created_at'];
 
     /**
      * Get the attributes that should be cast.

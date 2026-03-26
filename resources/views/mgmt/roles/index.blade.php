@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- Content -->
-    <div class="h-[calc(100dvh-62px)] lg:h-full overflow-hidden flex flex-col bg-layer border border-layer-line shadow-xs rounded-lg">
+
         <!-- Header -->
         <div class="py-3 px-4 flex flex-wrap justify-between items-center gap-2 border-b border-card-line">
             <div>
@@ -45,54 +45,24 @@
 
                                 <!-- Table -->
                                 <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                                    <thead class="bg-gray-50 dark:bg-neutral-800">
-                                        <tr>
+                                    <x-table.thead>
                                         <th scope="col" class="ps-6 py-3 text-start">
-                                        <label for="hs-at-with-checkboxes-main" class="flex">
-                                        <input type="checkbox" class="shrink-0 size-4 bg-transparent border-gray-300 dark:border-neutral-600 rounded-sm shadow-2xs text-gray-800 dark:text-white focus:ring-0 focus:ring-offset-0 checked:bg-gray-800 dark:checked:bg-white checked:border-gray-800 dark:checked:border-white disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-main">
-                                        <span class="sr-only">Checkbox</span>
-                                        </label>
+                                            <label for="hs-at-with-checkboxes-main" class="flex">
+                                                <input type="checkbox" class="shrink-0 size-4 bg-transparent border-gray-300 dark:border-neutral-600 rounded-sm shadow-2xs text-gray-800 dark:text-white focus:ring-0 focus:ring-offset-0 checked:bg-gray-800 dark:checked:bg-white checked:border-gray-800 dark:checked:border-white disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-main">
+                                                <span class="sr-only">Checkbox</span>
+                                            </label>
                                         </th>
 
-                                        <th scope="col" class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
-
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-foreground hover:text-muted-foreground-1 focus:outline-hidden focus:text-muted-foreground-1" href="#" target="_parent">
-                                                Name
-                                                <svg class="shrink-0 size-3.5 text-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
-                                            </a>
-                                        </th>
-
-                                        <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                        <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                        Status
-                                        </span>
-                                        </div>
-                                        </th>
-
-                                        <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                        <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                        Permissions
-                                        </span>
-                                        </div>
-                                        </th>
-
-                                        <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                        <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                        Created
-                                        </span>
-                                        </div>
-                                        </th>
-
-                                        <th scope="col" class="px-6 py-3 text-end"></th>
-                                        </tr>
-                                    </thead>
+                                        <x-table.th sortable model="acrole" sort-field="name">Name</x-table.th>
+                                        <x-table.th>Status</x-table.th>
+                                        <x-table.th>Permissions</x-table.th>
+                                        <x-table.th>Created At</x-table.th>
+                                        <x-table.th></x-table.th>
+                                    </x-table.thead>
 
                                     <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                                         @foreach($roles as $role)
-                                        @includeIf('mgmt.roles.index-row', ['role' => $role])
+                                            @includeIf('mgmt.roles.index-row', ['role' => $role])
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -101,7 +71,7 @@
                                 <!-- Footer -->
                                 @if( $roles->hasPages() )
                                     <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
-                                        {{ $roles->links() }}
+                                        {{ $roles->appends(request()->query())->links() }}
                                     </div>
                                 @endif
                                 <!-- End Footer -->
@@ -114,7 +84,7 @@
             <!-- End Table Section -->
         </div>
         <!-- End Body -->
-    </div>
+
     <!-- End Content -->
 
 @endsection

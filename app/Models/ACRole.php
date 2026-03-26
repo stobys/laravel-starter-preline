@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use App\Models\User;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\PermissionRegistrar;
+use App\Traits\SortableTrait;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 #[Fillable(['name', 'guard_name', 'is_built_in'])]
 class ACRole extends Role
 {
-    use SoftDeletes;
+    use SoftDeletes, SortableTrait;
+
+    protected $sortables = ['id', 'name', 'created_at'];
 
     protected $casts = [
         'is_built_in' => 'boolean',

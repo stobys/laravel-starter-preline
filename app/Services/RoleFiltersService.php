@@ -31,7 +31,7 @@ class RoleFiltersService
 
         // -- wyszukiwanie po frazie
         $query->when($filters['search'] ?? null, fn($q, $search) =>
-            $q->whereLike('name', '%'. $search .'%')
+            $q->whereLike('name', '%'. $filters['search'] .'%')
         );
 
         return $query;

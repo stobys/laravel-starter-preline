@@ -25,7 +25,7 @@ class UserController extends Controller
 
     public function index(UserFiltersService $filters)
     {
-        $users = $filters->apply()->paginate( config('app.paginator.items_per_page') );
+        $users = $filters->apply()->applySort()->paginate( config('app.paginator.items_per_page') );
 
         return view('mgmt.users.index', compact('users'));
     }

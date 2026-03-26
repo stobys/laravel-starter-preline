@@ -79,50 +79,18 @@
 
                                 <!-- Table -->
                                 <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                                    <thead class="bg-gray-50 dark:bg-neutral-800">
-                                        <tr>
-                                            <th scope="col" class="ps-6 py-3 text-start">
+                                    <x-table.thead>
+                                            <th scope="col" class="px-6 py-3 text-start">
                                                 <label for="hs-at-with-checkboxes-main" class="flex">
                                                     <input type="checkbox" class="shrink-0 size-4 bg-transparent border-gray-300 dark:border-neutral-600 rounded-sm shadow-2xs text-gray-800 dark:text-white focus:ring-0 focus:ring-offset-0 checked:bg-gray-800 dark:checked:bg-white checked:border-gray-800 dark:checked:border-white disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-main">
                                                     <span class="sr-only">Checkbox</span>
                                                 </label>
                                             </th>
 
-                                        <th scope="col" class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-foreground hover:text-muted-foreground-1 focus:outline-hidden focus:text-muted-foreground-1" href="#" target="_parent">
-                                                Name
-                                                <x-heroicon-s-arrow-up-down class="shrink-0 size-3 rotate-90" />
-                                            </a>
-                                        </th>
-
-                                        <th scope="col" class="px-6 py-3 text-start">
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-foreground hover:text-muted-foreground-1 focus:outline-hidden focus:text-muted-foreground-1" href="#" target="_parent">
-                                                Resource
-                                                <x-feather-chevron-up class="shrink-0 size-3" />
-                                            </a>
-                                            {{-- <div class="flex items-center gap-x-2">
-                                                <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                    Resource
-                                                    <x-heroicon-s-chevron-down class="shrink-0 size-5 text-foreground" />
-                                                </span>
-                                            </div> --}}
-                                        </th>
-
-                                        <th scope="col" class="px-6 py-3 text-start">
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-foreground hover:text-muted-foreground-1 focus:outline-hidden focus:text-muted-foreground-1" href="#" target="_parent">
-                                                Created
-                                                <x-feather-chevron-down class="shrink-0 size-3" />
-                                            </a>
-                                            {{--
-                                            <div class="flex items-center gap-x-2">
-                                                <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                    Created
-                                                    <x-heroicon-s-chevron-up class="shrink-0 size-5 text-foreground" />
-                                                </span>
-                                            </div>
-                                            --}}
-                                        </th>
-                                    </thead>
+                                            <x-table.th sortable model="acpermission" sort-field="name">Name</x-table.th>
+                                            <x-table.th>Resource</x-table.th>
+                                            <x-table.th sortable model="acpermission" sort-field="created_at">Created</x-table.th>
+                                    </x-table.thead>
 
                                     <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                                         @foreach($permissions as $permission)

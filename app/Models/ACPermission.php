@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\ACResource;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\PermissionRegistrar;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Permission\PermissionRegistrar;
+use Spatie\Permission\Models\Permission;
+
+use App\Traits\SortableTrait;
+use App\Models\ACResource;
 
 class ACPermission extends Permission
 {
-    // protected $table = 'DomainRelatedSettings';
+    use SortableTrait;
+
+    protected $sortables = ['id', 'name', 'created_at'];
 
     protected $fillable = [
         'name',

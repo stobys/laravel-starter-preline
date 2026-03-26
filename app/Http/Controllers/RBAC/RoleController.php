@@ -40,7 +40,7 @@ class RoleController extends Controller
      */
     public function index(RoleFiltersService $filters)
     {
-        $roles = $filters->apply()->withCount('permissions')->paginate(config('app.paginator.items_per_page'));
+        $roles = $filters->apply()->applySort()->withCount('permissions')->paginate(config('app.paginator.items_per_page'));
 
         return view('mgmt.roles.index', compact('roles'));
     }
@@ -123,9 +123,7 @@ class RoleController extends Controller
     public function permissions()
     {
         $resources = ACResource::select(['id', 'name'])->get();
-        $permissions = ACPermission::with('resource')->paginate( config('app.paginator.items_per_page') );
-
- dd(auth()->user());
+        $permissions = ACPermission::with('resource')->applySort()->paginate( config('app.paginator.items_per_page') );
 
         return view('mgmt.roles.permissions', compact('resources', 'permissions'));
     }

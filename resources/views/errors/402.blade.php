@@ -1,5 +1,5 @@
 @extends('layout.main')
 
 @section('content')
-    <x-http-error code="404" :exception="$exception" />
+    <x-http-error code="402" :exception="$exception" />
 @endsection

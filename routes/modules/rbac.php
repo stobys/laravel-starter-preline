@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/',                 [RoleController::class, 'index'])   -> name('index');
         Route::post('/',                [RoleController::class, 'filter'])   -> name('filter');
 
+        Route::get('/permissions-list', [RoleController::class, 'permissions'])   -> name('permissions-list');
+
         Route::get('/{role}',           [RoleController::class, 'show'])    -> name('show')->withTrashed();
         Route::get('/create',           [RoleController::class, 'create'])  -> name('create');
         Route::post('/store',           [RoleController::class, 'store'])   -> name('store');
@@ -34,6 +36,5 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{role}/delete',    [RoleController::class, 'delete'])  -> name('delete');
         Route::get('/{role}/restore',   [RoleController::class, 'restore']) -> name('restore')->withTrashed();
 
-        Route::get('/permissions-list', [RoleController::class, 'permissions'])   -> name('permissions-list');
     });
 });
