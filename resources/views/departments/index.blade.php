@@ -1,0 +1,104 @@
+@extends('layout.main')
+
+@section('content')
+
+	@push('modals')
+		@includeIf('departments.partials.modal-import')
+	@endpush
+
+    <!-- Content -->
+        <!-- Header -->
+        <div class="py-3 px-4 flex flex-wrap justify-between items-center gap-2 border-b border-card-line">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+                    {{ __('departments.labels.index-title') }}
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-neutral-300">
+                    {{ __('departments.labels.index-title-helper') }}
+                </p>
+            </div>
+
+            <!-- Button Group -->
+            <div class="flex items-center gap-x-2">
+                <a  href="{{ route('departments.create') }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
+                    <x-feather-plus class="shrink-0 size-4" />
+                    {{ __('departments.actions.add-new') }}
+                </a>
+
+                <button role="button" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none"
+					data-hs-overlay="#hs-departments-import-modal"
+				>
+                    <x-feather-upload class="shrink-0 size-4" />
+                    {{ __('app.actions.import') }}
+                </button>
+                <a x-data="{ active: false }" href="{{ route('departments.sync-teta') }}" @click="active = true" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
+                    <x-feather-refresh-cw x-bind:class="{'animate-spin': active}" class="shrink-0 size-4"  />
+                    <span x-show="!active">{{ __('departments.actions.sync-teta') }}</span>
+                    <span x-cloak x-show="active">{{ __('departments.actions.syncing-teta') }}</span>
+                </a>
+            </div>
+            <!-- End Button Group -->
+        </div>
+        <!-- End Header -->
+
+        <!-- Body -->
+        <div class="flex-1 flex flex-col overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
+            <!-- Table Section -->
+            <div class="w-full px-6 py-6 mx-auto">
+                <!-- Card -->
+                <div class="flex flex-col">
+                    <div class="overflow-x-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-gray-100 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+                        <div class="min-w-full inline-block align-middle">
+                            <div class="bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 rounded-xl shadow-2xs overflow-hidden">
+                                <!-- Header -->
+                                <x-form action="{{ route('departments.filter') }}">
+                                    <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-table-line">
+                                        @includeIf('departments.partials.index-filter')
+                                    </div>
+                                </x-form>
+                                <!-- End Header -->
+
+                                <!-- Table -->
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                                    <x-table.thead>
+                                            <th scope="col" class="ps-6 py-3 text-start">
+                                                <label for="hs-at-with-checkboxes-main" class="flex">
+                                                    <input type="checkbox" class="shrink-0 size-4 bg-transparent border-gray-300 dark:border-neutral-600 rounded-sm shadow-2xs text-gray-800 dark:text-white focus:ring-0 focus:ring-offset-0 checked:bg-gray-800 dark:checked:bg-white checked:border-gray-800 dark:checked:border-white disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-main">
+                                                    <span class="sr-only">Checkbox</span>
+                                                </label>
+                                            </th>
+
+                                            <x-table.th sortable model="department" sort-field="name">{{ __('departments.th.name') }}</x-table.th>
+                                            <x-table.th sortable model="department" sort-field="display_name">{{ __('departments.th.teta_name') }}</x-table.th>
+                                            <x-table.th sortable model="department" sort-field="teta_mpk_code">{{ __('departments.th.mpk') }}</x-table.th>
+                                            <x-table.th sortable model="department" sort-field="abbr">{{ __('departments.th.abbr') }}</x-table.th>
+                                            <x-table.th></x-table.th>
+                                    </x-table.thead>
+
+                                    <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                                        @foreach($departments as $department)
+                                            @includeIf('departments.partials.index-row', ['department' => $department])
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- End Table -->
+
+                                <!-- Footer -->
+                                @if( $departments->hasPages() )
+                                    <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
+                                        {{ $departments->appends(request()->query())->links() }}
+                                    </div>
+                                @endif
+                                <!-- End Footer -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- End Table Section -->
+        </div>
+        <!-- End Body -->
+    <!-- End Content -->
+
+@endsection

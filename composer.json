@@ -9,13 +9,18 @@
         "php": "^8.3",
         "blade-ui-kit/blade-heroicons": "^2.7",
         "blade-ui-kit/blade-icons": "^1.9",
+        "lab404/laravel-impersonate": "^1.7",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
-        "livewire/blaze": "*",
+        "livewire/blaze": "^1.0",
         "livewire/livewire": "*",
         "outhebox/blade-flags": "^1.7",
+		"owen-it/laravel-auditing": "^14.0",
+        "spatie/laravel-backup": "^10.2",
+        "spatie/laravel-model-states": "^2.13",
         "spatie/laravel-permission": "^7.2",
-        "sweetalert2/laravel": "^1.4"
+        "sweetalert2/laravel": "^1.4",
+		"yajra/laravel-oci8": "^13.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "*",

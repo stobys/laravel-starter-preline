@@ -15,9 +15,12 @@ trait SortableTrait
             throw new SortableException('Class '. __CLASS__ .' missing required property `sortables`.');
         }
 
+		$default_field = property_exists($this, 'sortables_default_field') ? $this->sortables_default_field : null;
+		$default_order = property_exists($this, 'sortables_default_order') ? $this->sortables_default_order : 'asc';
+
         $model = strtolower(basename(__CLASS__));
-        $field = request()->input('sf', null);  // default null
-        $order = request()->input('so', 'asc');  // 'asc' lub 'desc'
+        $field = request()->input('sf', $default_field);  // default null
+        $order = request()->input('so', $default_order);  // 'asc' lub 'desc'
 
         // -- jezeli zdefiniowano jawnie pole do sortowania
         if( ! is_null($field) ) {

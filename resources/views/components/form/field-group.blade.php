@@ -1,16 +1,14 @@
-@blaze
-
 @props([
-    'id' => Str::random(10),
+    'for' => Str::random(10),
     'label' => 'Label',
     'name' => null,
     'helper' => null,
     'hint' => null,
 ])
 
-<div>
+<div {{ $attributes->merge(['class' => 'py-2']) }}>
     <div class="mb-2 flex flex-wrap justify-between items-center gap-2">
-        <label for="{{ $id }}" class="block text-sm font-medium text-foreground">{{ $label }}</label>
+        <label for="{{ $for }}" class="block text-sm font-medium text-foreground">{{ $label }}</label>
         @if($hint)
             <span class="block text-sm text-muted-foreground-1">{{ $hint }}</span>
         @endif

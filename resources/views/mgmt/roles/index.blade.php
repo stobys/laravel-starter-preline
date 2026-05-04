@@ -8,10 +8,10 @@
         <div class="py-3 px-4 flex flex-wrap justify-between items-center gap-2 border-b border-card-line">
             <div>
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
-                    Roles
+                    {{ __('roles.labels.index-title') }}
                 </h2>
                 <p class="text-sm text-gray-600 dark:text-neutral-300">
-                    List of roles.
+                    {{ __('roles.labels.index-title-helper') }}
                 </p>
             </div>
 
@@ -19,7 +19,7 @@
             <div class="flex items-center gap-x-2">
                 <a  href="{{ route('roles.create') }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
                     <x-feather-user-plus class="shrink-0 size-4" />
-                    Add role
+                    {{ __('roles.actions.add-new') }}
                 </a>
             </div>
             <!-- End Button Group -->
@@ -53,10 +53,9 @@
                                             </label>
                                         </th>
 
-                                        <x-table.th sortable model="acrole" sort-field="name">Name</x-table.th>
-                                        <x-table.th>Status</x-table.th>
-                                        <x-table.th>Permissions</x-table.th>
-                                        <x-table.th>Created At</x-table.th>
+                                        <x-table.th sortable model="acrole" sort-field="name">{{ __('roles.th.name') }}</x-table.th>
+                                        <x-table.th>{{ __('roles.th.status') }}</x-table.th>
+                                        <x-table.th>{{ __('roles.th.stats') }}</x-table.th>
                                         <x-table.th></x-table.th>
                                     </x-table.thead>
 

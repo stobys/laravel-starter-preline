@@ -7,18 +7,28 @@
         <div class="py-3 px-4 flex flex-wrap justify-between items-center gap-2 border-b border-card-line">
             <div>
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
-                    Users
+                    {{ __('users.labels.index-title') }}
                 </h2>
                 <p class="text-sm text-gray-600 dark:text-neutral-300">
-                    List of users.
+                    {{ __('users.labels.index-title-helper') }}
                 </p>
             </div>
 
             <!-- Button Group -->
             <div class="flex items-center gap-x-2">
-                <a  href="{{ route('users.create') }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
+                <a href="{{ route('users.create') }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
                     <x-feather-user-plus class="shrink-0 size-4" />
-                    Add user
+                    {{ __('users.actions.add-new') }}
+                </a>
+                <a x-data="{ active: false }" href="{{ route('users.sync-teta') }}" @click="active = true" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
+                    <x-feather-refresh-cw x-bind:class="{'animate-spin': active}" class="shrink-0 size-4"  />
+                    <span x-show="!active">{{ __('users.actions.sync-teta') }}</span>
+                    <span x-cloak x-show="active">{{ __('users.actions.syncing-teta') }}</span>
+                </a>
+                <a x-data="{ active: false }" href="{{ route('users.sync-ldap') }}" @click="active = true" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
+                    <x-feather-refresh-cw x-bind:class="{'animate-spin': active}" class="shrink-0 size-4"  />
+                    <span x-show="!active">{{ __('users.actions.sync-ldap') }}</span>
+                    <span x-cloak x-show="active">{{ __('users.actions.syncing-ldap') }}</span>
                 </a>
             </div>
             <!-- End Button Group -->
@@ -52,11 +62,11 @@
                                                 </label>
                                             </th>
 
-                                            <x-table.th sortable model="user" sort-field="full_name">Name</x-table.th>
-                                            <x-table.th>Roles</x-table.th>
-                                            <x-table.th>Status</x-table.th>
-                                            <x-table.th>Password Age</x-table.th>
-                                            <x-table.th sortable model="user" sort-field="created_at">Created At</x-table.th>
+                                            <x-table.th sortable model="user" sort-field="full_name">{{ __('users.th.name') }}</x-table.th>
+											<x-table.th>{{ __('users.th.department') }}</x-table.th>
+                                            <x-table.th>{{ __('users.th.roles') }}</x-table.th>
+                                            <x-table.th>{{ __('users.th.status') }}</x-table.th>
+                                            <x-table.th>{{ __('users.th.password-age') }}</x-table.th>
                                             <x-table.th></x-table.th>
                                     </x-table.thead>
 

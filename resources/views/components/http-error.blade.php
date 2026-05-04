@@ -1,5 +1,3 @@
-@blaze
-
 @props([
     'code'  => null,
     'exception' => null,

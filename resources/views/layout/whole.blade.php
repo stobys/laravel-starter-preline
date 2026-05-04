@@ -9,7 +9,7 @@
   <meta name="description" content="A modern CMS dashboard for managing posts, members, and site content with ease.">
 
   <!-- Title -->
-    <title>{{ config('app.name', 'Laravel') }} | CMS | Preline Pro | Preline UI, crafted with Tailwind CSS</title>
+    <title>{{ config('app.name', 'Laravel') }} | TPMS - Training Plan Management System</title>
 
   <!-- Favicon -->
   {{-- <link rel="shortcut icon" href="../../favicon.ico"> --}}
@@ -65,7 +65,7 @@
             <div class="hs-dropdown relative [--strategy:absolute] [--placement:bottom-left] inline-flex">
               <!-- Project Button -->
               <button id="hs-pro-anpjdi" type="button" class="py-1 px-2 min-h-8 flex items-center gap-x-1 font-medium text-sm text-foreground rounded-lg hover:bg-surface-hover focus:outline-hidden focus:bg-surface-focus" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-                <img class="shrink-0 size-6 rounded-full object-cover me-1" src="../assets/img/logo/hs.png" alt="Logo">
+                <img class="shrink-0 size-6 rounded-full object-cover me-1" src="{{ asset('/img/hs.png') }}" alt="Logo">
                 Htmlstream
                 <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
               </button>
@@ -88,7 +88,7 @@
                           Htmlstream
                         </span>
                       </span>
-                      <img class="shrink-0 size-5 rounded-full object-cover" src="../assets/img/logo/hs.png" alt="Logo">
+                      <img class="shrink-0 size-5 rounded-full object-cover" src="{{ asset('/img/hs.png') }}" alt="Logo">
                     </label>
                     <!-- End Item -->
 
@@ -101,7 +101,7 @@
                           Bloomark
                         </span>
                       </span>
-                      <img class="shrink-0 size-5 rounded-full object-cover" src="../assets/img/logo/logo-short.png" alt="Logo">
+                      <img class="shrink-0 size-5 rounded-full object-cover" src="{{ asset('/img/logo-short.png') }}" alt="Logo">
                     </label>
                     <!-- End Item -->
                   </div>

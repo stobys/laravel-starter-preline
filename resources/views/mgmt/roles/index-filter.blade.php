@@ -36,12 +36,12 @@
     <div class="flex justify-end gap-x-2">
         <button type="submit" name="filters[submit]" value="filter" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-800 dark:bg-white border border-transparent text-white dark:text-neutral-800 hover:bg-gray-900 dark:hover:bg-neutral-300 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
             <x-feather-filter class="shrink-0 size-4" />
-            Filter
+            {{ __('app.actions.filter-run') }}
         </button>
 
         <button type="submit" name="filters[submit]" value="clear" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-layer border border-layer-line text-layer-foreground shadow-2xs hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus disabled:opacity-50 disabled:pointer-events-none" href="#">
             <x-feather-filter class="shrink-0 size-4" />
-            Clear
+            {{ __('app.actions.filter-clear') }}
         </button>
     </div>
 </div>

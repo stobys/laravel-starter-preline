@@ -2,35 +2,49 @@
 
 namespace App\Providers;
 
+use App\Services\ServiceTaskRegistry;
+use App\View\Composers\AppHeaderComposer;
+use App\View\Composers\AppSidebarComposer;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
+    // -- Register any application services.
+    public function register(): void {}
 
     /**
      * Bootstrap any application services.
      */
     public function boot(): void
     {
-        Paginator::defaultView('layout.paginator');
+		Paginator::defaultView('layout.paginator');
 
         $this -> bootRequestMacros();
 
-        // $this->configureSecureUrls();
-
-        // $this->bootViewComposers();
+		$this -> bootViewComposers();
 
         // $this->bootBladeDirectives();
+
+		$this->bootCarconMacros();
+
+		// $this->bootBuilderMacros();
+
+        // $this->configureSecureUrls();
+
+		$this->app->singleton(ServiceTaskRegistry::class);
     }
+
+ 	protected function bootPolicies(): void
+	{
+		Gate::policy(App\Models\Training::class, App\Policies\TrainingPolicy::class);
+	}
 
     protected function bootRequestMacros(): void
     {
@@ -67,7 +81,76 @@ class AppServiceProvider extends ServiceProvider
             // Zwracamy kod PHP, który zostanie wykonany w widoku
             return "<?php echo Lang::has({$key}) ? trans({$key}) : {$fallback}; ?>";
         });
+
+		Blade::if('debug', function () {
+            return env('APP_DEBUG', false);
+        });
+
+		Blade::if('superAdmin', function () {
+            return auth()->user()?->isSuperAdmin();
+        });
     }
+
+	protected function bootCarconMacros(): void
+	{
+        Carbon::macro('getWeekOfYearLeadingZeros', function () {
+            return str_pad($this->weekOfYear, 2, '0', STR_PAD_LEFT);
+        });
+
+        Carbon::macro('getFiscalYear', function () {
+            $schoolYear = self::this()->year;
+
+            if ($this->month > 9) {
+                $schoolYear++;
+            }
+
+            return $schoolYear;
+        });
+
+        Carbon::macro('isPastWeek', function () {
+            if ($this->weekOfYear < $this->clone()->now()->weekOfYear) {
+                return true;
+            }
+
+            return false;
+        });
+	}
+
+	protected function bootBuilderMacros(): void
+	{
+		Builder::macro('addSubSelect', function($column, $query) {
+            if (is_null($this->getQuery()->columns)) {
+                $this->select($this->getQuery()->from .'.*');
+            }
+
+            return $this->selectSub($query->limit(1)->getQuery(), $column);
+        });
+
+		/*
+         * Orders sub-query results.
+         *
+         * @author @reinink
+         *
+         * @param Builder $query
+         * @param        $direction
+         *
+         * @return Builder
+         */
+        Builder::macro('orderBySub', function ($query, $direction='asc', $nullPosition=null) {
+            if (!in_array($direction, ['asc', 'desc'])) {
+                throw new Exception('Not a valid direction.');
+            }
+
+            if (!in_array($nullPosition, [null, 'first', 'last'], true)) {
+                throw new Exception('Not a valid null position.');
+            }
+
+            return $this->orderByRaw(
+                implode('', ['(', $query->limit(1)->toSql(), ') ', $direction, $nullPosition ? ' NULLS ' . strtoupper($nullPosition) : null]),
+                $query->getBindings()
+            );
+        });
+	}
 
     protected function configureSecureUrls()
     {

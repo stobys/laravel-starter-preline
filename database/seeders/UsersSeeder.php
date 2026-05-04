@@ -54,6 +54,29 @@ class UsersSeeder extends Seeder
                 'created_at'    => Carbon::now(),
                 'updated_at'    => Carbon::now(),
             ],
+
+            'akrasig'  => [
+                'username'      => 'akrasig',
+                'password'      => 'Password',
+
+                'email'         => 'akrasig@adient.com',
+                'first_name'    => 'Krasinski',
+                'last_name'     => 'gracjan',
+
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
+            ],
+            'akondrlu'  => [
+                'username'      => 'akondrlu',
+                'password'      => 'Password',
+
+                'email'         => 'akondrlu@adient.com',
+                'first_name'    => 'Kondor',
+                'last_name'     => 'Luki',
+
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
+            ],
         ];
 
         $batch = User::create($users['batch']);
@@ -69,10 +92,20 @@ class UsersSeeder extends Seeder
         ]);
         // $admin -> assignRole('almighty');
 
-        $atobyss = User::create($users['atobyss']);
-        $atobyss -> update([
-            'password_changed_at' => $faker->dateTimeBetween('-5 months', 'now'),
-        ]);
+        // $atobyss = User::create($users['atobyss']);
+        // $atobyss -> update([
+        //     'password_changed_at' => $faker->dateTimeBetween('-5 months', 'now'),
+        // ]);
+
+        // $akrasig = User::create($users['akrasig']);
+        // $akrasig -> update([
+        //     'password_changed_at' => $faker->dateTimeBetween('-5 months', 'now'),
+        // ]);
+
+        // $akondrlu = User::create($users['akondrlu']);
+        // $akondrlu -> update([
+        //     'password_changed_at' => $faker->dateTimeBetween('-5 months', 'now'),
+        // ]);
 
         // User::factory(10)->create();
     }

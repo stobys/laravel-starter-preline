@@ -9,14 +9,14 @@
                     aria-selected="true" aria-controls="tabs-with-underline-1"
                     class="px-4 hs-tab-active:font-semibold hs-tab-active:text-gray-900 dark:hs-tab-active:text-neutral-300 hs-tab-active:after:bg-gray-900 dark:hs-tab-active:after:bg-neutral-300 relative py-4 px-1 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-gray-500 dark:text-neutral-400 after:absolute after:-bottom-px after:inset-x-0 after:w-full after:h-0.5 after:bg-transparent hover:text-gray-900 dark:hover:text-neutral-300 focus:outline-hidden focus:text-gray-900 dark:focus:text-neutral-300 disabled:opacity-50 disabled:pointer-events-none active">
                         <x-feather-shield class="shrink-0 size-4" />
-                        Role Info
+                        {{ __('roles.labels.role-info-tab') }}
                 </button>
                 <button type="button" role="tab" id="tabs-with-underline-item-2"
                     data-hs-tab="#tabs-with-underline-2"
                     aria-selected="false" aria-controls="tabs-with-underline-2"
                     class="px-4 hs-tab-active:font-semibold hs-tab-active:text-gray-900 dark:hs-tab-active:text-neutral-300 hs-tab-active:after:bg-gray-900 dark:hs-tab-active:after:bg-neutral-300 relative py-4 px-1 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-gray-500 dark:text-neutral-400 after:absolute after:-bottom-px after:inset-x-0 after:w-full after:h-0.5 after:bg-transparent hover:text-gray-900 dark:hover:text-neutral-300 focus:outline-hidden focus:text-gray-900 dark:focus:text-neutral-300 disabled:opacity-50 disabled:pointer-events-none">
                         <x-feather-user-check class="shrink-0 size-4" />
-                        Permissions
+                        {{ __('roles.labels.role-permissions-tab') }}
                 </button>
             </nav>
         </div>
@@ -27,7 +27,7 @@
             <div id="tabs-with-underline-1" role="tabpanel" aria-labelledby="tabs-with-underline-item-1">
                 <p class="text-gray-500 dark:text-neutral-400">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-                        <x-form.field-group id="name" name="name" label="Name">
+                        <x-form.field-group for="name" name="name" label="{{ __('roles.th.name') }}">
                             <x-form.input required id="name" name="name" value="{{ old('name', $role->name ?? null) }}" :readonly="$readonly ?? false" />
                         </x-form.field-group>
                     </div>
@@ -40,17 +40,15 @@
                         <ul class="w-full flex flex-col">
                             <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-semibold bg-gray-100 dark:bg-neutral-700 border border-gray-200 dark:border-neutral-700 text-gray-800 dark:text-white -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg">
                                 <div class="flex items-center justify-between w-full">
-                                    <span class="uppercase">{{ $resource->name }}</span>
+                                    <span class="uppercase">{{ __('roles.labels.resource-'. $resource->name) }}</span>
                                 </div>
                             </li>
                             @foreach($resource->permissions as $permission)
                             <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-800 dark:text-white -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg">
-                                <div class="flex items-center justify-between w-full">
-                                    <span>
-                                        <label for="permission_{{ $permission->id }}" class="relative inline-block w-11 h-6 cursor-pointer">
-                                            {{ $permission->name }}
-                                        </label>
-                                    </span>
+                                <div class="flex items-center w-full">
+									<label for="permission_{{ $permission->id }}" class="relative inline-block w-11 h-6 cursor-pointer grow">
+										{{ __('roles.permissions.'. $permission->name) }}
+									</label>
                                     <span>
                                         <div class="flex items-center">
                                             <label for="permission_{{ $permission->id }}" class="relative inline-block w-11 h-6 cursor-pointer">

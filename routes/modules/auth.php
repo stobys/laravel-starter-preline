@@ -26,11 +26,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('auth.register');
 // })->name('register');
 
-// Route::get('forgot-password', function () {
-//     return view('auth.forgot-password');
-// })->name('forgot-password');
-
-
 Route::middleware('guest')->group(function () {
     // Route::get('register', [RegisteredUserController::class, 'create'])
     //     ->name('register');

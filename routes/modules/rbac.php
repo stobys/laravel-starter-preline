@@ -28,9 +28,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/permissions-list', [RoleController::class, 'permissions'])   -> name('permissions-list');
 
-        Route::get('/{role}',           [RoleController::class, 'show'])    -> name('show')->withTrashed();
         Route::get('/create',           [RoleController::class, 'create'])  -> name('create');
         Route::post('/store',           [RoleController::class, 'store'])   -> name('store');
+
+        Route::get('/{role}',           [RoleController::class, 'show'])    -> name('show')->withTrashed();
         Route::get('/{role}/edit',      [RoleController::class, 'edit'])    -> name('edit')->withTrashed();
         Route::patch('/{role}',         [RoleController::class, 'update'])  -> name('update')->withTrashed();
         Route::get('/{role}/delete',    [RoleController::class, 'delete'])  -> name('delete');

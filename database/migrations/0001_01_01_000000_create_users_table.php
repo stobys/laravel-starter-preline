@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
+			$table->foreignId('department_id')->nullable();
+			$table->foreignId('manager_id')->nullable()->constrained('users');
+            $table->string('username')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('full_name')->storedAs("CONCAT(last_name, ', ', first_name)");
@@ -23,6 +25,17 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->date('hired_at') -> nullable();
+            $table->date('dismissed_at') -> nullable();
+
+			$table -> foreignId('personal_id') -> nullable();
+			$table -> string('teta_guid', 40) -> unique() -> nullable();
+			$table -> foreignId('teta_prac_id') -> unique() -> nullable();
+			$table -> tinyInteger('teta_grupa') -> nullable() -> comment('1 - Undefined, 2 - Direct, 4 - Indirect, 8 - Salaried');
+			$table -> string('mpk_code', 10) -> nullable();
+
+			$table->boolean('is_domain_user')->default(false);
+
             $table->softDeletes();
             $table->boolean('force_password_change')->default(false);
             $table->timestamp('password_changed_at')->nullable();
@@ -50,6 +63,16 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+		Schema::create('user_delegations', function (Blueprint $table) {
+            $table->id();
+			$table->foreignId('principal_id')->constrained('users')->comment('kto jest zastępowany');
+			$table->foreignId('substitute_id')->constrained('users')->comment('kto zastępuje');
+            $table->datetime('valid_from')->nullable()->comment('od kiedy zastępstwo jest aktywne');
+            $table->datetime('valid_to')->nullable()->comment('do kiedy zastępstwo jest aktywne');
+            $table->string('comment')->nullable()->comment('komentarz do zastępstwa');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -57,6 +80,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+		Schema::dropIfExists('user_delegations');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');

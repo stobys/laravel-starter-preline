@@ -6,7 +6,6 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\User;
 
 class UserUpdateRequest extends FormRequest
 {
@@ -34,6 +33,10 @@ class UserUpdateRequest extends FormRequest
         $user = $this->route('user');
 
         return [
+			'department_id' => [
+				'nullable',
+				'exists:departments,id',
+			],
             'username' => [
                 'required',
                 Rule::unique('users', 'username')->ignore($user->id)

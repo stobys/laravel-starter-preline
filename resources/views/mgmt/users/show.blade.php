@@ -1,0 +1,45 @@
+@extends('layout.main')
+
+@section('content')
+
+    <!-- Content -->
+	<x-form class="flex-1 flex flex-col overflow-hidden">
+		<!-- Header -->
+		<div class="py-3 px-4 flex flex-wrap justify-between items-center gap-2 border-b border-card-line">
+			<div>
+				<h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+					{{ __('users.labels.show-title') }}
+				</h2>
+				<p class="text-sm text-gray-600 dark:text-neutral-300">
+					{{ __('users.labels.show-title-helper') }}
+				</p>
+			</div>
+
+			<!-- Button Group -->
+			<div class="flex items-center gap-x-2">
+				<a href="{{ route('users.index') }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-800 dark:text-white shadow-2xs hover:bg-gray-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:focus:bg-neutral-700">
+					<x-feather-x-circle class="shrink-0 size-4" />
+					{{ __('app.actions.cancel') }}
+				</a>
+
+				<a href="{{ route('users.edit', $user->id) }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-800 dark:text-white shadow-2xs hover:bg-gray-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:focus:bg-neutral-700">
+					<x-feather-edit class="shrink-0 size-4" />
+					{{ __('app.actions.edit') }}
+				</a>
+			</div>
+			<!-- End Button Group -->
+		</div>
+		<!-- End Header -->
+
+		<!-- Body -->
+		<div class="flex-1 flex flex-col overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
+			@includeIf('mgmt.users.user-form', ['user' => $user, 'action' => 'show'])
+
+			<x-validation-errors />
+			<x-auth-session-status class="mb-4" :status="session('status')" />
+		</div>
+		<!-- End Body -->
+	</x-form>
+    <!-- End Content -->
+
+@endsection

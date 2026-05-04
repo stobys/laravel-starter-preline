@@ -31,6 +31,7 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+			'department_id' => ['nullable', 'exists:departments,id'],
             'username' => ['required', 'unique:users'],
             'email' => ['required', 'email', 'unique:users'],
             'first_name' => ['required', 'string', 'max:255'],

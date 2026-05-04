@@ -34,14 +34,10 @@
         @endif
     </x-table.td>
     <x-table.td>
-        <span class="block text-sm text-gray-500 dark:text-neutral-400">
-            {{ $role->permissions_count }}
-        </span>
+        <x-badge>Permissions: {{ $role->permissions_count }}</x-badge>
+        <x-badge type="yellow">Users: {{ $role->users_count }}</x-badge>
     </x-table.td>
-    <x-table.td>
-        <span class="text-sm text-gray-500 dark:text-neutral-400">{{ $role->created_at->format('Y-m-d') }}</span>
-    </x-table.td>
-    <x-table.td>
+    <x-table.td class="text-center">
         <div class="inline-flex items-center text-sm gap-x-2">
             @unless($role->is_built_in)
                 <a href="{{ route('roles.show', $role->id) }}" class="inline-flex items-center text-sm text-gray-800 dark:text-white decoration-2 hover:underline focus:outline-hidden focus:underline font-medium">

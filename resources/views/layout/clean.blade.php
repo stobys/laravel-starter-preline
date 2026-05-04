@@ -9,7 +9,7 @@
     <meta name="description" content="A modern CMS dashboard for managing posts, members, and site content with ease.">
 
     <!-- Title -->
-    <title>{{ config('app.name', 'Laravel') }} | CMS | Preline Pro | Preline UI, crafted with Tailwind CSS</title>
+    <title>{{ config('app.name', 'Laravel') }} | TPMS - Training Plan Management System</title>
 
     <!-- Favicon -->
     {{-- <link rel="shortcut icon" href="../../favicon.ico"> --}}

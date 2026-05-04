@@ -9,6 +9,8 @@
 @source "../../node_modules/preline/dist/*.js";
 @import "../../node_modules/preline/variants.css";
 
+@import "../../node_modules/flatpickr/dist/flatpickr.min.css";
+
 /* Plugins */
 @plugin "@tailwindcss/forms";
 
@@ -26,8 +28,38 @@
     [role="button"]:not(:disabled) {
         cursor: pointer;
     }
+
+	[x-cloak] { display: none !important; }
 }
 
 /* Defaults hover styles on all devices */
 @custom-variant hover (&:hover);
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-company-teal: #00465b;
+	/* --color-company-teal-1: #2F4050; */
+	--color-company-teal-2:#0F718E
+	--color-company-teal-3:#5F9DAB
+	--color-company-teal-4:#dce4e9;
+
+    --color-company-green: #bfd732;
+    --color-company-green-2: #dee565;
+    --color-company-green-3: #eef08f;
+	--color-company-green-4: #edf4d5;
+
+    --color-company-gray: #616265;
+    --color-company-gray-2: #bcbcbe;
+    --color-company-gray-2: #e7e8e9;
+
+}
+
+
+@layer components {
+
+    .btn-default {
+        @apply py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-company-teal dark:bg-company-green border border-transparent text-company-green dark:text-company-teal hover:bg-company-teal-2 dark:hover:bg-company-green-2 focus:outline-hidden focus:bg-gray-900 dark:focus:bg-neutral-300 disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+
+}

@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Actions\Users\UpdateUserDataFromLdap;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -132,6 +133,7 @@ class LoginController extends Controller
                     'username'  => $credentials['username'],
                 ], [
                     'password'  => $credentials['password'],
+                    'password'  => Hash::make($credentials['password']),
                 ]);
 
                 auth()->login($dbUser);

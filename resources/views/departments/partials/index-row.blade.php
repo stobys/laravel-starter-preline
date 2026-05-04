@@ -1,0 +1,61 @@
+<tr class="hover:bg-muted-hover">
+    <x-table.td>
+        <label for="hs-at-with-checkboxes-1" class="flex">
+            <input type="checkbox" class="shrink-0 size-4 bg-transparent border-gray-300 dark:border-neutral-600 rounded-sm shadow-2xs text-gray-800 dark:text-white focus:ring-0 focus:ring-offset-0 checked:bg-gray-800 dark:checked:bg-white checked:border-gray-800 dark:checked:border-white disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-1">
+            <span class="sr-only">Checkbox</span>
+        </label>
+    </x-table.td>
+    <x-table.td>
+        <div class="flex items-center gap-x-3">
+            {{-- <img class="inline-block size-9.5 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar"> --}}
+            <div class="grow">
+				<span @class(["block text-sm",
+                    "text-gray-800 dark:text-neutral-200" => !$department->trashed(),
+                    "text-red-400 dark:text-neutral-500" => $department->trashed()
+                ])
+                >
+					{{ $department->name }}
+                </span>
+				@if($department->manager)
+                <span class="inline-flex items-center text-xs gap-x-1.5 text-gray-500 dark:text-neutral-400">
+					<x-feather-user class="size-3" />
+						{{ $department->manager?->full_name }}
+				</span>
+				@endif
+            </div>
+        </div>
+	</x-table.td>
+    <x-table.td @class(["text-sm",
+                    "text-gray-800 dark:text-neutral-200" => !$department->trashed(),
+                    "text-red-400 dark:text-neutral-500" => $department->trashed()
+                ])
+	>{{ $department->teta_name }}</x-table.td>
+	<x-table.td>{{ $department->teta_mpk_code }}</x-table.td>
+    <x-table.td>{{ $department->abbr }}</x-table.td>
+    <x-table.td class="text-center">
+        <div class="inline-flex items-center text-sm gap-x-2">
+            @unless($department->is_built_in)
+                <a href="{{ route('departments.edit', $department->id) }}" class="inline-flex items-center text-sm text-gray-800 dark:text-white decoration-2 hover:underline focus:outline-hidden focus:underline font-medium">
+                    <x-feather-edit class="size-4" />
+                </a>
+                @if( $department -> trashed() )
+                    <a href="{{ route('departments.restore', $department->id) }}" class="inline-flex items-center text-sm text-orange-600 dark:text-white decoration-2 hover:underline focus:outline-hidden focus:underline font-medium">
+                        <x-feather-trash class="size-4" />
+                    </a>
+                @else
+					@unless( $department->members()->exists() )
+                    <a href="{{ route('departments.delete', $department->id) }}" class="inline-flex items-center text-sm text-red-600 dark:text-white decoration-2 hover:underline focus:outline-hidden focus:underline font-medium">
+                        <x-feather-trash-2 class="size-4" />
+                    </a>
+					@endunless
+                @endif
+                {{-- @if( $department -> trashed() )
+                    <a href="{{ route('departments.restore', $department->id) }}" class="inline-flex items-center text-sm text-orange-600 dark:text-white decoration-2 hover:underline focus:outline-hidden focus:underline font-medium">
+                        <x-feather-trash class="size-4" />
+                    </a>
+                @else
+                @endif --}}
+            @endunless
+        </div>
+    </x-table.td>
+</tr>

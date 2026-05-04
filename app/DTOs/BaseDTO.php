@@ -23,6 +23,11 @@ abstract class BaseDTO
         return new static(...static::buildConstructorArgs($validated));
     }
 
+	final public static function make(mixed ...$args): static
+	{
+		return static::fromArray($args);
+	}
+
     /**
      * Reguły walidacji w stylu Laravela.
      */

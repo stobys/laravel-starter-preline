@@ -3,7 +3,6 @@
 @section('content')
 
     <!-- Content -->
-    <div class="h-[calc(100dvh-62px)] lg:h-full overflow-hidden flex flex-col bg-layer border border-layer-line shadow-xs rounded-lg">
         <!-- Header -->
         <div class="py-3 px-4 flex flex-wrap justify-between items-center gap-2 border-b border-card-line">
             <div>
@@ -116,7 +115,6 @@
             <!-- End Table Section -->
         </div>
         <!-- End Body -->
-    </div>
     <!-- End Content -->
 
 @endsection

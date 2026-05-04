@@ -114,6 +114,39 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'oracle' => [
+            'driver' => 'oracle',
+            // 'tns'  => env('DB_TNS', ''),
+            // 'dsn'        => 'oci:dbname=10.164.96.99/teta;charset=UTF8',
+            'host' => '10.164.96.99',
+            'port' => '1521',
+            'database' => 'TETA',
+            'username' => 'TETA_ADMIN',
+            'password' => 'prodtc',
+            // 'username' => 'winkd',
+            // 'password' => 'winkd',
+            'charset' => 'AL32UTF8',
+            'prefix' => '',
+            // 'prefix_schema' => env('DB_SCHEMA_PREFIX', ''),
+        ],
+
+        // 'winkd' => [
+        //     'type'       => 'PDO',
+        //     'connection' => array(
+        //         // 'dsn'        => 'dblib:host=10.164.107.10;dbname=bazaKD',                                       // -- for Linux
+        //         'dsn'            => 'sybase:host=10.164.107.105;dbname=bazaKD;charset=UTF-8',   // -- for Windows
+        //         'options'        => array(
+        //             'charset'   => 'UTF-8'
+        //         ),
+        //         'username'   => 'sa',
+        //         'password'   => 'hsk',
+        //         'persistent' => FALSE,
+        //     ),
+        //     'table_prefix' => '',
+        //     'charset'      => FALSE,
+        //     'caching'      => FALSE,
+        //     'profiling'    => TRUE,
+        // ],
     ],
 
     /*

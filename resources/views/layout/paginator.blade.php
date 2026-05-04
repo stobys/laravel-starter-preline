@@ -1,7 +1,7 @@
     @if( $paginator->hasPages() )
         <div>
             <p class="text-sm text-gray-700 leading-5 dark:text-gray-600">
-                {!! __('Showing') !!}
+                {{ __('app.paginator.results') }}
                 @if ($paginator->firstItem())
                     <span class="font-medium">{{ $paginator->firstItem() }}</span>
                     —
@@ -9,9 +9,8 @@
                 @else
                     {{ $paginator->count() }}
                 @endif
-                {!! __('of') !!}
+                {{ __('app.paginator.of') }}
                 <span class="font-medium">{{ $paginator->total() }}</span>
-                {!! __('results') !!}
             </p>
         </div>
 

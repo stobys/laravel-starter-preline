@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
         $this -> call([
             RBACSeeder::class,
             UsersSeeder::class,
+            // DepartmentsSeeder::class,
+            // TrainingProvidersSeeder::class,
+            // TrainingsSeeder::class,
+            // BudgetsSeeder::class,
         ]);
     }
 }

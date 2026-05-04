@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use \Spatie\Permission\Traits\HasRoles;
+use App\Models\TrainingAttachment;
+use App\Traits\Impersonatable;
 use App\Traits\SortableTrait;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -12,12 +14,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Lab404\Impersonate\Models\Impersonate;
 
-#[Fillable(['username', 'password', 'email', 'first_name', 'last_name', 'password_changed_at'])]
+#[Fillable([
+	'department_id', 'manager_id', 'username', 'password', 'email', 'first_name', 'last_name', 'password_changed_at',
+	'personal_id', 'hired_at', 'dismissed_at', 'teta_guid', 'teta_prac_id', 'teta_grupa', 'mpk_code',
+	'is_domain_user'
+])]
+
+
+
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeletes, SortableTrait;
+    use HasFactory, Impersonate, Impersonatable, Notifiable, HasRoles, SoftDeletes, SortableTrait;
     // HasRolesAndPermissions;
 
     protected $sortables = ['id', 'username', 'email', 'first_name', 'last_name', 'full_name','created_at'];
@@ -34,6 +44,8 @@ class User extends Authenticatable
             'password_changed_at'       => 'datetime',
             'email_verified_at'         => 'datetime',
             'created_at'                => 'datetime',
+
+            // 'notification_preferences'  => 'array',
         ];
     }
 
@@ -65,6 +77,59 @@ class User extends Authenticatable
         // });
     }
 
+    public function manager()
+    {
+		return $this->department->manager;
+        // return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function managedDepartments()
+    {
+        return $this->hasMany(Department::class, 'manager_id');
+        // $managers = User::whereHas('managedDepartments')->get(); // zwraca wszystkich menadżerów
+    }
+
+    public function isDepartmentManager(): bool
+    {
+		return $this->managedDepartments()->exists();
+    }
+
+    public function subordinates()
+    {
+        // relacja wygodna do eager loadingu; zwraca users z działu zarządzanego przez tego usera
+        return $this->hasManyThrough(
+            User::class,            // końcowy model
+            Department::class,      // model pośredni
+            'manager_id',           // FK na Department wskazujący na user.id
+            'department_id',        // FK na User wskazujący na department.id
+            'id',                   // lokalny klucz usera
+            'id'                    // lokalny klucz departamentu
+        )
+        -> where('users.id', '!=', $this->id)  // opcjonalnie wyklucz samego managera
+        ;
+    }
+
+	public function trainings() {
+		return $this->belongsToMany(Training::class, 'participant_training', 'participant_id', 'training_id');
+	}
+
+
+    public function isHRRepresentative(): bool
+    {
+		return $this?->department?->teta_mpk_code == '06-8342';
+        return $this->can('rbac:hr-representative');
+    }
+
+    public function managesDepartment(Department $department): bool
+    {
+        return $department->manager_id === $this->id;
+    }
+
     /**
      * Get the profile associated with the user.
      */
@@ -72,11 +137,6 @@ class User extends Authenticatable
     // {
     //     return $this->hasOne(UserProfile::class);
     // }
-
-    public function getFullNameAttribute() {
-        return $this->last_name . ', ' . $this->first_name;
-    }
-
     public function getPasswordAgeAttribute() {
         $lastChange = $this->password_changed_at ?: $this->created_at;
 
@@ -98,28 +158,80 @@ class User extends Authenticatable
         return ((int) $lastChange->diffInDays(Carbon::now()) >= (int)config('password-age.expiry-age'));
     }
 
-    public static function findByFullname($full_name): User
+    public function isAlmighty()
     {
-        $name = collect(explode(',', $full_name)) -> map(fn($item) => trim($item))->toArray();
-
-        return self::query()
-            -> whereRaw('LOWER(last_name) = ?', [strtolower($name[0])])
-            -> whereRaw('LOWER(first_name) = ?', [strtolower($name[1])])
-            -> firstOrFail();
+        return $this->hasRole('almighty');
     }
 
-    // public function isAlmighty()
-    // {
-    //     return $this->hasRole('almighty');
-    // }
+	public function isBuiltIn()
+	{
+		return $this->is_built_in;
+	}
 
-    // public function scopeSystemOnly(Builder $query): void
-    // {
-    //     $query->where('users.is_system', true);
-    // }
+    public function scopeBuiltInOnly(Builder $query): void
+    {
+        $query->where('users.is_built_in', true);
+    }
 
-    // public function scopeNonSystemOnly(Builder $query): void
-    // {
-    //     $query->where('users.is_system', false);
-    // }
+    public function scopeWithoutBuiltIn(Builder $query): void
+    {
+        $query->where('users.is_built_in', false);
+    }
+
+	public function uploadedTrainingAttachments()
+	{
+		return $this->hasMany(TrainingAttachment::class, 'uploaded_by');
+	}
+
+	/**
+	* By default, all users can impersonate anyone
+	* this example limits it so only admins can
+	* impersonate other users
+	*
+	* Czy ten user MOŻE impersonować kogoś?
+	* $this = zalogowany user który chce się podszyć
+	* $impersonated = user, pod którego chce się podszyć
+	*/
+	public function canImpersonate(): bool
+	{
+		// -- almighty user can always impersonate
+		if( $this->isAlmighty() ) return true;
+
+		return true; // -- in general users can impersontate other users
+	}
+
+	/**
+	* By default, all users can be impersonated,
+	* this limits it to only certain users.
+	*
+	* Czy ten user MOŻE BYĆ impersonowany?
+	* $this = user pod którego ktoś chce się podszyć
+	* $impersonator = user który próbuje się podszyć
+	*/
+	public function canBeImpersonated(): bool
+	{
+		// -- cannot impersonate almighty user
+		return ! $this->isAlmighty();
+	}
+
+	public function canSubstitute(int $user_id): bool
+	{
+		if( $this->isAlmighty() ) return true;
+
+		// -- can substitute if there is an active Delegation
+		return UserDelegation::valid()
+				-> where('principal_id', $user_id)
+				-> where('substitute_id', $this->id)
+				-> exists();
+	}
+
+	public function canBeSubstituted(int $user_id): bool
+	{
+		// -- can be substituted if there is an active Delegation
+		return UserDelegation::valid()
+			-> where('principal_id', $this->id)
+			-> where('substitute_id', $user_id)
+			-> exists();
+	}
+
 }
